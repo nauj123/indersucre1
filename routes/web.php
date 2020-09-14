@@ -30,7 +30,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['aut
     /*RUTAS DE USUARIO*/
     Route::get('usuario', 'UsuarioController@index')->name('usuario');
     Route::get('usuario/crear', 'UsuarioController@crear')->name('crear_usuario');
-    Route::post('usuario', 'UsuarioController@guardar')->name('guardar_usuario');
+    Route::post('usuario', 'UsuarioController@guardar')->name('guardar_usuario'); 
     Route::get('usuario/{id}/editar', 'UsuarioController@editar')->name('editar_usuario');
     Route::put('usuario/{id}', 'UsuarioController@actualizar')->name('actualizar_usuario');
     Route::delete('usuario/{id}', 'UsuarioController@eliminar')->name('eliminar_usuario');
@@ -63,17 +63,37 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['aut
     Route::get('permiso-rol', 'PermisoRolController@index')->name('permiso_rol');
     Route::post('permiso-rol', 'PermisoRolController@guardar')->name('guardar_permiso_rol');
 });
-Route::get('libro', 'LibroController@index')->name('libro')->middleware('auth');
-Route::get('libro/crear', 'LibroController@crear')->name('crear_libro')->middleware('auth');
-Route::post('libro', 'LibroController@guardar')->name('guardar_libro')->middleware('auth');
-Route::post('libro/{libro}', 'LibroController@ver')->name('ver_libro')->middleware('auth');
-Route::get('libro/{id}/editar', 'LibroController@editar')->name('editar_libro')->middleware('auth');
-Route::put('libro/{id}', 'LibroController@actualizar')->name('actualizar_libro')->middleware('auth');
-Route::delete('libro/{id}', 'LibroController@eliminar')->name('eliminar_libro')->middleware('auth');
-/**
- * Rutas Libro Prestamo
- */
-Route::get('libro-prestamo', 'LibroPrestamoController@index')->name('libro-prestamo')->middleware('auth');
-Route::get('libro-prestamo/crear', 'LibroPrestamoController@crear')->name('libro-prestamo.crear')->middleware('auth');
-Route::post('libro-prestamo', 'LibroPrestamoController@guardar')->name('libro-prestamo.guardar')->middleware('auth');
-Route::put('libro-prestamo/{libro}', 'LibroPrestamoController@devolucion')->name('libro-prestamo.devolver')->middleware('auth');
+
+Route::get('/usuarios/guardarNuevoUsuario', 'Usuarios\UsuariosController@guardarNuevoUsuario');
+
+Route::get('usuarios/gestion-usuarios', function () {
+	return view('usuarios/gestion_usuarios');
+});
+
+Route::get('administracion/administracion-parametros', function () {
+	return view('administracion/administracion_parametros');
+});
+
+Route::post('/administracion/getDepartamentos', 'Administracion\ParametrosController@getDepartamentos');
+Route::post('/administracion/getMunicipios', 'Administracion\ParametrosController@getMunicipios');
+Route::post('/administracion/getTipoUbicacion', 'Administracion\ParametrosController@getTipoUbicacion');
+Route::post('/administracion/getPropiedad', 'Administracion\ParametrosController@getPropiedad');
+Route::post('/administracion/getDeportes', 'Administracion\ParametrosController@getDeportes');
+Route::post('/administracion/getEstadoGeneral', 'Administracion\ParametrosController@getEstadoGeneral');
+Route::post('/administracion/getCategorias', 'Administracion\ParametrosController@getCategorias');
+Route::post('/administracion/getSubCategorias', 'Administracion\ParametrosController@getSubCategorias');
+Route::post('/administracion/getParametros', 'Administracion\ParametrosController@getParametros');
+Route::post('/administracion/getParametroAsociados', 'Administracion\ParametrosController@getParametroAsociados');
+Route::post('/administracion/getSubRegion', 'Administracion\ParametrosController@getSubRegion');
+Route::post('/administracion/getTipoEscenario', 'Administracion\ParametrosController@getTipoEscenario');
+
+Route::post('/administracion/modificarParametroAsociado', 'Administracion\ParametrosController@modificarParametroAsociado');
+Route::post('/administracion/guardarNuevoParametroAsociado', 'Administracion\ParametrosController@guardarNuevoParametroAsociado');
+
+Route::post('/administracion/getEps', 'Administracion\ParametrosController@getEps');
+Route::post('/administracion/getGrupoSanguineo', 'Administracion\ParametrosController@getGrupoSanguineo');
+Route::post('/administracion/getDiscapacidades', 'Administracion\ParametrosController@getDiscapacidades');
+Route::post('/administracion/getNivelEscolaridad', 'Administracion\ParametrosController@getNivelEscolaridad');
+Route::post('/administracion/getColegios', 'Administracion\ParametrosController@getColegios');
+Route::post('/administracion/getTiposDocumento', 'Administracion\ParametrosController@getTiposDocumento');
+Route::post('/administracion/getroles', 'Administracion\ParametrosController@getroles');
